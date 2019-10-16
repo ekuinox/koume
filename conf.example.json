@@ -1,0 +1,11 @@
+{
+    "targets": {
+        "googledomains": [
+            {
+                "hostname": "example.com",
+                "username": "<username>",
+                "password": "<password>"
+            }
+        ]
+    }
+}
