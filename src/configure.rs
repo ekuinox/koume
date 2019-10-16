@@ -3,7 +3,7 @@ use std::fs::read_to_string;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Target {
-    pub domain: String,
+    pub hostname: String,
     pub username: String,
     pub password: String,
 }
