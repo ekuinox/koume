@@ -11,12 +11,24 @@ impl Client for GoogleDomainsClient {
         // https://username:password@domains.google.com/nic/update?hostname=subdomain.yourdomain.com&myip=1.2.3.4
 
         let client = reqwest::Client::new();
-        let req = client.post("https://domains.google.com/nic/update")
-            .header("User-Agent", "Chrome/41.0 ")
+        let request = client
+            .get("https://domains.google.com/nic/update")
             .basic_auth(&target.username, Some(&target.password))
             .query(&[("hostname", target.hostname.as_str())])
-            .send();
+            .build()
+            .unwrap();
 
-        println!("{:?}", req);
+        match client.execute(request) {
+            Ok(mut response) => {
+                if response.status() != 200 {
+                    // bad request
+                    return
+                }
+                println!("{}", response.text().unwrap());
+            },
+            Err(error) => {
+                println!("{:?}", error)
+            }
+        }
     }
 }
